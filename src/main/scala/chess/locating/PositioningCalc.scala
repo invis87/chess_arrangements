@@ -26,15 +26,7 @@ object PositioningCalc {
     val tablesWithChess = for {
       table <- tables
       withChess <- addChess(table, chessmanToAdd)
-//      emptyCell <- table.emptyCells
-//      t <- table.trySafelyAddChessman(chessmanToAdd, emptyCell)
     } yield withChess
-
-//    def addChess(table: ChessTable, chessman: Chessman): Set[ChessTable] = {
-//      chessAdded = chessAdded + 1
-//      if(chessAdded % 1000 == 0) print('.')
-//      table.emptyCells.flatMap(table.trySafelyAddChessman(chessman, _))
-//    }
 
     widthwayArrangements(tablesWithChess, chessmans.tail)
   }
@@ -72,30 +64,20 @@ object PositioningCalc {
     println(nextTables.size)
 
     if(step == chessmans.size) {
-      notVeryDeepArrangements(nextTables.toSet, chessmans.tail)
+      deepArrangements(nextTables.toIterator, chessmans.tail).toSet
     } else {
       halfWidthwayArrangements(nextTables.toSet, chessmans.tail, step+1)
     }
   }
 
-  def notVeryDeepArrangements(tables: Set[ChessTable], chessmans: List[Chessman]): Set[ChessTable] = {
+  def deepArrangements(tables: Iterator[ChessTable], chessmans: List[Chessman]): Iterator[ChessTable] = {
     if(chessmans.isEmpty) return tables
 
     val chessman = chessmans.head
     for {
       table <- tables
-      withChess <- notVeryDeepArrangements(addChess(table, chessman), chessmans.tail)
+      withChess <- deepArrangements(addChessIterator(table, chessman), chessmans.tail)
     } yield withChess
-  }
-
-  def deepArrangements(table: ChessTable, chessmans: List[Chessman]): Iterator[ChessTable] = {
-    if(chessmans.isEmpty) return Iterator(table)
-
-    val chessman = chessmans.head
-      for {
-        withChess <- addChessIterator(table, chessman)
-        result <- deepArrangements(withChess, chessmans.tail)
-      } yield result
   }
 
   def serializeChessMap(chessMap : Map[Position, OccupyChessCell]): Set[Position] = {

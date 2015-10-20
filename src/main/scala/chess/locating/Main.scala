@@ -3,46 +3,32 @@ package chess.locating
 import scala.collection.immutable.ListMap
 
 object Main {
-  var i = 0
-  val resultDeepSet = scala.collection.mutable.Set[Map[Position, ChessCell]]()
 
   def main(args: Array[String]) = {
 
     val (x, y) = (6, 9)
     val chess = new ChessTable(x, y)
-//        val chessmans = List(Knight, Knight, Rook, Rook, Knight, Knight)
-
-
+//    val chessmans = List(Knight, Knight, Knight, Knight, Rook, Rook)
     val chessmans = List(King, King, Queen, Bishop, Rook, Knight)
 
 
-    //    val result = PositioningCalc.widthwayArrangements(Set(chess), chessmans)
-    //    println(s"Origin solution: ${result.size}")
+//    val widthwaySolution = PositioningCalc.widthwayArrangements(Set(chess), chessmans)
+//    println(s"widthway solution size: ${widthwaySolution.size}")
+//
+//
+//    val halfWidthwaySolution = PositioningCalc.halfWidthwayArrangements(Set(chess), chessmans)
+//    println(s"halfWidthway solution size: ${halfWidthwaySolution.size}")
 
 
-    //    val resultV2Stream = PositioningCalc.allPossibleArrangmentsV2(chess, chessmans)
-    //    val resultV2Set = resultV2Stream.toSet
-    //    val resultV2List = resultV2Stream.toList
-    //
-    //    val x = 0
-    //    println(s"Old: ${x}! NewSet: ${resultV2Set.size}, newList: ${resultV2List.size}")
+    val deepSolution = PositioningCalc.deepArrangements(Iterator(chess), chessmans)
 
-
-    //    val resultV3 = PositioningCalc.halfWidthwayArrangements(Set(chess), chessmans)
-    //    println(s"V3 set size: ${resultV3.size}")
-    //
-    //
-    val resultDeep = PositioningCalc.deepArrangements(chess, chessmans)
-
-
-    resultDeep.foreach(table => {
+    val resultDeepSet = scala.collection.mutable.Set[Map[Position, ChessCell]]()
+    deepSolution.foreach(table => {
       if (!resultDeepSet.contains(table.chessMap)) {
         resultDeepSet += table.chessMap
       }
-    }
-    )
-    //    val resultDeepSet = resultDeep.foldLeft(scala.collection.mutable.Set[ChessTable]())((set, table) => set += table)
-    println(s"\nresultDeep set size: ${resultDeepSet.size}")
+    })
+    println(s"\ndeepSolution set size: ${resultDeepSet.size}")
 
     resultDeepSet.take(20).foreach(map => println(
       ChessDrawer.draw(
@@ -50,25 +36,7 @@ object Main {
           PositioningCalc.createFullMap(
             PositioningCalc.getPositions(x, y), map.map(kv => (kv._1, kv._2.asInstanceOf[OccupyChessCell]))))) + "\n------\n"))
 
-
-    //    val resultDeep = PositioningCalc.deepArrangementsOnlyCount(Set(chess), chessmans)
-    //    println(s"resultDeep set size: ${resultDeep }")
-
-
-    //
-    //    resultV2.take(20).foreach(t => if(t.isDefined) {println(ChessDrawer.draw(t.get) + "------------")})
-
-    //    println(ChessDrawer.draw(PositioningCalc.placeChessmans(Some(chess), chessmans).get))
-
-    //    val tables = PositioningCalc.allPossibleArrangments(chess, chessmans)
-    //    println(tables.size)
-    //
-    //    println(s"Distinct layouts for table(${chess.x}, ${chess.y}) and chessmans(${chessmans.map(_.sign) mkString ", "}) = ${tables.size}")
-
-    //    println("\nTables:")
-    //    tables.foreach(t => println(ChessDrawer.draw(t) + "------------"))
-
-//        printTestTable()
+    //        printTestTable()
   }
 
   def printTestTable() = {
