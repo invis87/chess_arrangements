@@ -80,20 +80,6 @@ object PositioningCalc {
     } yield withChess
   }
 
-  def serializeChessMap(chessMap : Map[Position, OccupyChessCell]): Set[Position] = {
-    chessMap.map(kv => serializeChessmanPosition(kv._2.chessMan, kv._1)).toSet
-  }
-
-  def serializeChessmanPosition(chessman: Chessman, pos: Position): Position = {
-    chessman match {
-      case King => pos + 1000
-      case Queen => pos + 800
-      case Bishop => pos + 600
-      case Rook => pos + 400
-      case Knight => pos + 200
-    }
-  }
-
   def createFullMap(positions: Set[Position], occupyCells: Map[Position, OccupyChessCell]): Map[Position, ChessCell] = {
     val dngCells: Map[Position, ChessCell] = occupyCells.map(kv => kv._2.chessMan.getPossibleTurnMoves(kv._1, positions)).flatten.map(pos => (pos, DangerousChessCell)).toMap
     dngCells ++ occupyCells
