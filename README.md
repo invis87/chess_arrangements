@@ -22,6 +22,7 @@ One of the results:
 * R - Rook
 * B - Bishop
 * Q - Queen
+* K - King
 ```
 o _ o _ o N
 o o o o R o
