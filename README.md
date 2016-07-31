@@ -17,7 +17,7 @@ println(s"\nresultDeep set size: ${resultDeepSet.size}")
 ```
 One of the results:
 * o - "hot" points
-* _ - sage points
+* _ - safe points
 * N - Knight
 * R - Rook
 * B - bishop
