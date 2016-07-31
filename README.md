@@ -20,7 +20,7 @@ One of the results:
 * _ - safe points
 * N - Knight
 * R - Rook
-* B - bishop
+* B - Bishop
 * Q - Queen
 ```
 o _ o _ o N
