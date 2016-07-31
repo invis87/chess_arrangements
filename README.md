@@ -16,12 +16,12 @@ resultDeep.foreach(table => {
 println(s"\nresultDeep set size: ${resultDeepSet.size}")
 ```
 One of the results:
-o - "hot" points
-_ - sage points
-N - Knight
-R - Rook
-B - bishop
-Q - Queen
+* o - "hot" points
+* _ - sage points
+* N - Knight
+* R - Rook
+* B - bishop
+* Q - Queen
 ```
 o _ o _ o N
 o o o o R o
