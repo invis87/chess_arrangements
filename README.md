@@ -3,8 +3,8 @@ Calculate the number of distinct layouts for which all _chessmans_ can be placed
 
 ### Example of usage
 ```
-val chess = new ChessTable(6, 9)
-val chessmans = List(King, King, Queen, Bishop, Rook, Knight)
+val chess = new ChessTable(6, 6)
+val chessmans = List(King, Queen, Bishop, Rook, Knight)
 
 val resultDeepSet = scala.collection.mutable.Set[Map[Position, ChessCell]]()
 
@@ -14,4 +14,13 @@ resultDeep.foreach(table => {
         resultDeepSet += table.chessMap
       }})
 println(s"\nresultDeep set size: ${resultDeepSet.size}")
+```
+One of the results:
+```
+o _ o _ o N
+o o o o R o
+_ _ o _ o o
+o _ o B o o
+_ o o o o K
+o o Q o o o
 ```
